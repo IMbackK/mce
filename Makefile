@@ -47,7 +47,8 @@ MODULES := \
 	$(MODULE_DIR)/libhomekey.so \
 	$(MODULE_DIR)/libx11-ctrl.so \
 	$(MODULE_DIR)/libiio-als.so \
-	$(MODULE_DIR)/libbutton-backlight.so
+	$(MODULE_DIR)/libbutton-backlight.so \
+	$(MODULE_DIR)/libpower-dsme.so
 MODEFILE := mode
 CONFFILE := mce.ini
 USRCONFFILE := 99-user.ini
