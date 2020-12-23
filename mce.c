@@ -78,7 +78,6 @@ static void usage(void)
 		  "system bus for D-Bus\n"
 		  "      --quiet         decrease debug message verbosity\n"
 		  "      --verbose       increase debug message verbosity\n"
-		  "      --debug-mode    run even if dsme fails\n"
 		  "      --help          display this help and exit\n"
 		  "      --version       output version information and exit\n"
 		  "\n"
