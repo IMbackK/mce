@@ -48,6 +48,7 @@ MODULES := \
 	$(MODULE_DIR)/libhomekey.so \
 	$(MODULE_DIR)/libx11-ctrl.so \
 	$(MODULE_DIR)/libiio-als.so \
+	$(MODULE_DIR)/liblock-generic.so \
 	$(MODULE_DIR)/libbutton-backlight.so \
 	$(MODULE_DIR)/liblock-tklock.so \
 	$(MODULE_DIR)/libpower-dsme.so \
