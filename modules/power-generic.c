@@ -6,7 +6,7 @@
 #include "datapipe.h"
 
 
-#define MODULE_NAME		"power-dsme"
+#define MODULE_NAME		"power-generic"
 
 #define MODULE_PROVIDES	"power"
 
