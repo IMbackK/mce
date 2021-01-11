@@ -33,7 +33,6 @@
 #include "mce-log.h"
 #include "mce-conf.h"
 #include "mce-dbus.h"
-#include "mce-dsme.h"
 #include "mce-gconf.h"
 #include "mce-modules.h"
 #include "event-input.h"
@@ -79,7 +78,6 @@ static void usage(void)
 		  "system bus for D-Bus\n"
 		  "      --quiet         decrease debug message verbosity\n"
 		  "      --verbose       increase debug message verbosity\n"
-		  "      --debug-mode    run even if dsme fails\n"
 		  "      --help          display this help and exit\n"
 		  "      --version       output version information and exit\n"
 		  "\n"
@@ -329,7 +327,6 @@ int main(int argc, char **argv)
 	gint status = 0;
 	gboolean daemonflag = FALSE;
 	gboolean systembus = TRUE;
-	gboolean debugmode = FALSE;
 #ifdef ENABLE_SYSTEMD_SUPPORT
 	gboolean systemd_notify = FALSE;
 #endif
@@ -405,10 +402,6 @@ int main(int argc, char **argv)
 		case 'v':
 			if (verbosity < LL_DEBUG)
 				verbosity++;
-			break;
-
-		case 'D':
-			debugmode = TRUE;
 			break;
 
 		case 'h':
@@ -489,6 +482,8 @@ int main(int argc, char **argv)
 	/* Setup all datapipes */
 	setup_datapipe(&system_state_pipe, READ_WRITE, DONT_FREE_CACHE,
 		       0, GINT_TO_POINTER(MCE_STATE_UNDEF));
+	setup_datapipe(&system_power_request_pipe, READ_WRITE, DONT_FREE_CACHE,
+		       0, GINT_TO_POINTER(MCE_POWER_REQ_UNDEF));
 	setup_datapipe(&mode_pipe, READ_WRITE, DONT_FREE_CACHE,
 		       0, GINT_TO_POINTER(MCE_INVALID_MODE_INT32));
 	setup_datapipe(&call_state_pipe, READ_WRITE, DONT_FREE_CACHE,
@@ -575,19 +570,6 @@ int main(int argc, char **argv)
 		goto EXIT;
 	}
 
-	/* Initialise DSME
-	 * pre-requisite: mce_gconf_init()
-	 * pre-requisite: mce_dbus_init()
-	 * pre-requisite: mce_mce_init()
-	 */
-	if (mce_dsme_init(debugmode) == FALSE) {
-		if (debugmode == FALSE) {
-			mce_log(LL_CRIT, "Cannot connect to DSME");
-			status = EXIT_FAILURE;
-			goto EXIT;
-		}
-	}
-
 	if (mce_devlock_init() == FALSE) {
 		status = EXIT_FAILURE;
 		goto EXIT;
@@ -648,7 +630,6 @@ EXIT:
 	mce_input_exit();
 	mce_powerkey_exit();
 	mce_devlock_exit();
-	mce_dsme_exit();
 	mce_mode_exit();
 	mce_connectivity_exit();
 
