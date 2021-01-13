@@ -32,7 +32,6 @@
 #include "mce-conf.h"
 #include "mce-dbus.h"
 #include "mce-dsme.h"
-#include "mce-gconf.h"
 #include "datapipe.h"
 
 #define MODULE_NAME		"lock-devlock"
