@@ -37,6 +37,7 @@ MODULES := \
 	$(MODULE_DIR)/libled-sw.so \
 	$(MODULE_DIR)/libled-dbus.so \
 	$(MODULE_DIR)/librtconf-gconf.so \
+	$(MODULE_DIR)/librtconf-ini.so \
 	$(MODULE_DIR)/libevdevvibrator.so \
 	$(MODULE_DIR)/libiio-accelerometer.so \
 	$(MODULE_DIR)/libcallstate.so \
@@ -49,6 +50,7 @@ MODULES := \
 MODEFILE := mode
 CONFFILE := mce.ini
 USRCONFFILE := 99-user.ini
+RTCONFFILE := rtconf.ini
 DBUSCONF := mce.conf
 GCONFSCHEMAS := devicelock.schemas security.schemas
 
@@ -124,6 +126,7 @@ install: all
 	$(INSTALL) $(MODULES) $(MODULEDIR)				&&\
 	$(INSTALL_DATA) $(MODEFILE) $(VARDIR)				&&\
 	$(INSTALL_DATA) $(CONFFILE) $(CONFINSTDIR)			&&\
+	$(INSTALL_DATA) $(RTCONFFILE) $(CONFINSTDIR)			&&\
 	$(INSTALL_DATA) $(USRCONFFILE) $(CONFINSTDIR)/$(OVRCONFDIR)	&&\
 	$(INSTALL_DATA) $(GCONFSCHEMAS) $(GCONFSCHEMADIR)		&&\
 	$(INSTALL_DATA) $(DBUSCONF) $(DBUSDIR)
